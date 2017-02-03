@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="U3S-w3-cyr" customClass="ListItemCell" customModule="todo_list" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="344" height="122"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="344" height="122"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hellooo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nRD-e3-XqC">
+                        <rect key="frame" x="20" y="10" width="59" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lq8-Ar-5BJ" userLabel="delete">
+                        <rect key="frame" x="10" y="88" width="24" height="24"/>
+                        <state key="normal" image="ic_close_white"/>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EBM-2x-z44">
+                        <rect key="frame" x="310" y="90" width="24" height="24"/>
+                        <state key="normal" image="ic_check_white"/>
+                    </button>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rvS-mc-eas" userLabel="colorMarker">
+                        <rect key="frame" x="80" y="0.0" width="204" height="122"/>
+                        <color key="backgroundColor" red="1" green="0.25911701619999999" blue="0.18061244470000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </view>
+                </subviews>
+            </view>
+            <color key="backgroundColor" red="0.0" green="0.90196078430000004" blue="0.46274509800000002" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="nRD-e3-XqC" firstAttribute="leading" secondItem="U3S-w3-cyr" secondAttribute="leading" constant="20" id="2rA-ud-iIq"/>
+                <constraint firstAttribute="bottom" secondItem="Lq8-Ar-5BJ" secondAttribute="bottom" constant="10" id="4Px-26-gc3"/>
+                <constraint firstAttribute="trailing" secondItem="rvS-mc-eas" secondAttribute="trailing" constant="60" id="EOc-HA-IkT"/>
+                <constraint firstAttribute="bottom" secondItem="rvS-mc-eas" secondAttribute="bottom" id="Hph-Kf-6vR"/>
+                <constraint firstItem="rvS-mc-eas" firstAttribute="leading" secondItem="U3S-w3-cyr" secondAttribute="leading" constant="80" id="MFp-gf-bzj"/>
+                <constraint firstItem="Lq8-Ar-5BJ" firstAttribute="leading" secondItem="U3S-w3-cyr" secondAttribute="leading" constant="10" id="VIs-ge-XyK"/>
+                <constraint firstAttribute="trailing" secondItem="EBM-2x-z44" secondAttribute="trailing" constant="10" id="Y6T-IQ-Uuc"/>
+                <constraint firstAttribute="bottom" secondItem="EBM-2x-z44" secondAttribute="bottom" constant="8" id="ZIf-SP-NFG"/>
+                <constraint firstItem="rvS-mc-eas" firstAttribute="top" secondItem="U3S-w3-cyr" secondAttribute="top" id="hLi-5P-v8M"/>
+                <constraint firstItem="nRD-e3-XqC" firstAttribute="top" secondItem="U3S-w3-cyr" secondAttribute="top" constant="10" id="kFG-0l-Fd9"/>
+            </constraints>
+            <size key="customSize" width="344" height="122"/>
+            <connections>
+                <outlet property="colorMarkerView" destination="rvS-mc-eas" id="8bw-By-ZQI"/>
+                <outlet property="completeButton" destination="EBM-2x-z44" id="z2U-uq-8F4"/>
+                <outlet property="deleteButton" destination="Lq8-Ar-5BJ" id="Jb2-s4-x2f"/>
+                <outlet property="label" destination="nRD-e3-XqC" id="YYr-iP-8jK"/>
+                <outlet property="leadingConstraint" destination="MFp-gf-bzj" id="zAy-dW-hfw"/>
+                <outlet property="trailingConstraint" destination="EOc-HA-IkT" id="xRN-uV-rHI"/>
+            </connections>
+            <point key="canvasLocation" x="142" y="-231"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="ic_check_white" width="24" height="24"/>
+        <image name="ic_close_white" width="24" height="24"/>
+    </resources>
+</document>
