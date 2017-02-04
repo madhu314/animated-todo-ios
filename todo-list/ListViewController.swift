@@ -85,14 +85,6 @@ class ListViewController: UIViewController, UICollectionViewDelegate, UICollecti
     // Dispose of any resources that can be recreated.
   }
   
-  func itemDeleted(indexPath: IndexPath) {
-    
-  }
-  
-  func itemCompleted(indexPath: IndexPath) {
-    
-  }
-  
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return listItemDataset.size()
   }
@@ -102,7 +94,6 @@ class ListViewController: UIViewController, UICollectionViewDelegate, UICollecti
     cell.transform = CGAffineTransform(scaleX: 1, y: 1)
     let listItem = listItemDataset.item(at: indexPath.row)
     cell.label.text = listItem.name
-    cell.backgroundColor = UIColor.white
     cell.colorMarkerView.backgroundColor = listItem.itemColor
     cell.listItem = listItem
     
@@ -160,6 +151,7 @@ class ListViewController: UIViewController, UICollectionViewDelegate, UICollecti
   }
   
   func decorateReadyToMove(for view: UIView, withElevation elevation: CGFloat, andAngle angle: CGFloat?) {
+    view.backgroundColor = UIColor.white
     view.layer.masksToBounds = false
     view.layer.shadowColor = UIColor.black.cgColor
     view.layer.shadowOffset = CGSize(width: 0, height: elevation)
@@ -178,6 +170,7 @@ class ListViewController: UIViewController, UICollectionViewDelegate, UICollecti
   }
   
   func decorateResting(for view:UIView) {
+    view.backgroundColor = UIColor.white
     view.layer.masksToBounds = false
     view.layer.shadowColor = UIColor.black.cgColor
     view.layer.shadowOffset = CGSize(width: 0, height: 2.0)
@@ -190,12 +183,12 @@ class ListViewController: UIViewController, UICollectionViewDelegate, UICollecti
   }
   
   func decorateCompleted(for view:UIView) {
+    view.backgroundColor = UIColor(red:1, green:1, blue:1, alpha:0.9)
     view.layer.masksToBounds = false
     view.layer.shadowColor = UIColor.black.cgColor
     view.layer.shadowOffset = CGSize(width: 0, height: 2.0)
     view.layer.shadowOpacity = 0.24
     view.layer.shadowRadius = 2.0
-    view.layer.opacity = 0.5
     movingCell?.layer.transform = CATransform3DMakeRotation(0, 0, 0, 1.0)
   }
   
