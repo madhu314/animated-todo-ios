@@ -100,18 +100,24 @@ class ListViewController: UIViewController, UICollectionViewDelegate, UICollecti
     cell.completedClosure = { listItem in
       cell.leadingConstraint.constant = 0
       cell.trailingConstraint.constant = 0
-      UIView.animate(withDuration: 0.3, delay: 0.0, usingSpringWithDamping: 1, initialSpringVelocity: 0.5, options: .curveEaseIn, animations: {
-        self.decorateReadyToMove(for: cell, withElevation: 8, andAngle: 0.0)
+      UIView.animate(withDuration: 0.15, delay: 0.0, usingSpringWithDamping: 1, initialSpringVelocity: 0.5, options: .curveLinear, animations: {
         cell.layoutIfNeeded()
       }, completion: { (completed) in
         if(listItem.isCompleted) {
           cell.trailingConstraint.constant = cell.frame.width - 4
-          self.decorateResting(for: cell)
         } else {
           cell.leadingConstraint.constant = cell.frame.width - 4
-          self.decorateCompleted(for: cell)
         }
-        self.listItemDataset.toggleCompleted(forItem: listItem, on: self.collectionView)
+        UIView.animate(withDuration: 0.15, delay: 0.0, usingSpringWithDamping: 1, initialSpringVelocity: 0.5, options: .curveEaseInOut, animations: {
+          if(listItem.isCompleted) {
+            self.decorateResting(for: cell)
+          } else {
+            self.decorateCompleted(for: cell)
+          }
+          cell.layoutIfNeeded()
+        }, completion: { (completed) in
+          self.listItemDataset.toggleCompleted(forItem: listItem, on: self.collectionView)
+        })
       })
     }
     
