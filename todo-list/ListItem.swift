@@ -11,13 +11,13 @@ import UIKit
 
 class ListItem {
   static var instanceCount: Int = 0
-  
+
   var name: String = ""
   var isCompleted: Bool = false
   var id: Int = -1
   var itemColor: UIColor = UIColor.red
-  
-  static func makeItem(with name:String, color: UIColor) -> ListItem {
+
+  static func makeItem(with name: String, color: UIColor) -> ListItem {
     ListItem.instanceCount = ListItem.instanceCount + 1
     let listItem = ListItem()
     listItem.name = name

@@ -10,20 +10,20 @@ import Foundation
 import UIKit
 class ListItemDataset {
   private var items: [ListItem] =  []
-  
+
   func size() -> Int {
     return items.count
   }
-  
+
   func item(at position: Int) -> ListItem {
     return items[position]
   }
-  
+
   func moveItem(from fromPos: Int, to: Int) {
     let item = self.items.remove(at: fromPos)
     self.items.insert(item, at: to)
   }
-  
+
   func remove(item: ListItem, on collectionView: UICollectionView) {
     let foundIndex = items.index { (given) -> Bool in
       return given.id == item.id
@@ -33,7 +33,7 @@ class ListItemDataset {
       collectionView.deleteItems(at: [IndexPath(item: index, section: 0)])
     }
   }
-  
+
   func toggleCompleted(forItem listItem: ListItem, on collectionView: UICollectionView) {
     let foundIndex = items.index { (given) -> Bool in
       return given.id == listItem.id
@@ -52,12 +52,12 @@ class ListItemDataset {
       }
     }
     listItem.isCompleted = !listItem.isCompleted
- 
+
   }
-  
+
   func generateRandom() {
     items.removeAll()
-    
+
     items.append(ListItem.makeItem(with: "Pick up laundry", color: UIColor(red:0.93, green:0.54, blue:0.65, alpha:1.00)))
     items.append(ListItem.makeItem(with: "Finish design work", color: UIColor(red:0.69, green:0.62, blue:0.83, alpha:1.00)))
     items.append(ListItem.makeItem(with: "Call dad", color: UIColor(red:0.53, green:0.84, blue:0.96, alpha:1.00)))
