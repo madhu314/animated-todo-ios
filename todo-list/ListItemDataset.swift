@@ -64,10 +64,10 @@ class ListItemDataset {
     items.append(ListItem.makeItem(with: "Pay electricity bill", color: UIColor(red:0.48, green:0.77, blue:0.74, alpha:1.00)))
     items.append(ListItem.makeItem(with: "Book flight tickets", color: UIColor(red:0.66, green:0.81, blue:0.52, alpha:1.00)))
 
-//    items.append(ListItem.makeItem(with: "Send that package", color: UIColor(red:0.98, green:0.71, blue:0.41, alpha:1.00)))
-//    items.append(ListItem.makeItem(with: "Complete blog post", color: UIColor(red:0.50, green:0.35, blue:0.25, alpha:1.00)))
-//    items.append(ListItem.makeItem(with: "Learn that new recipe", color: UIColor(red:0.30, green:0.42, blue:0.82, alpha:1.00)))
-//    items.append(ListItem.makeItem(with: "Submit app for review", color: UIColor(red:0.83, green:0.27, blue:0.42, alpha:1.00)))
-//    items.append(ListItem.makeItem(with: "Clear all PRs", color: UIColor(red:0.27, green:0.34, blue:0.40, alpha:1.00)))
+    items.append(ListItem.makeItem(with: "Send that package", color: UIColor(red:0.98, green:0.71, blue:0.41, alpha:1.00)))
+    items.append(ListItem.makeItem(with: "Complete blog post", color: UIColor(red:0.50, green:0.35, blue:0.25, alpha:1.00)))
+    items.append(ListItem.makeItem(with: "Learn that new recipe", color: UIColor(red:0.30, green:0.42, blue:0.82, alpha:1.00)))
+    items.append(ListItem.makeItem(with: "Submit app for review", color: UIColor(red:0.83, green:0.27, blue:0.42, alpha:1.00)))
+    items.append(ListItem.makeItem(with: "Clear all PRs", color: UIColor(red:0.27, green:0.34, blue:0.40, alpha:1.00)))
   }
 }

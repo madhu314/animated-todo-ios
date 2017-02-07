@@ -10,7 +10,7 @@ import UIKit
 
 class ListViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
   @IBOutlet weak var collectionView: UICollectionView!
-
+  let markerWidth: CGFloat = 6.0
   var movingCell: ListItemCell?
   var movementStartLocation: CGPoint?
   var listItemDataset: ListItemDataset = ListItemDataset()
@@ -121,9 +121,9 @@ class ListViewController: UIViewController, UICollectionViewDelegate, UICollecti
         cell.layoutIfNeeded()
       }, completion: { (_) in
         if(listItem.isCompleted) {
-          cell.trailingConstraint.constant = cell.frame.width - 4
+          cell.trailingConstraint.constant = cell.frame.width - self.markerWidth
         } else {
-          cell.leadingConstraint.constant = cell.frame.width - 4
+          cell.leadingConstraint.constant = cell.frame.width - self.markerWidth
         }
         UIView.animate(withDuration: 0.3, delay: 0.0, usingSpringWithDamping: 1, initialSpringVelocity: 0.5, options: .curveEaseInOut, animations: {
           if(listItem.isCompleted) {
@@ -156,11 +156,11 @@ class ListViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
 
     if listItem.isCompleted {
-      cell.leadingConstraint.constant = cell.frame.width - 4
+      cell.leadingConstraint.constant = cell.frame.width - markerWidth
       cell.trailingConstraint.constant = 0
     } else {
       cell.leadingConstraint.constant = 0
-      cell.trailingConstraint.constant = cell.frame.width - 4
+      cell.trailingConstraint.constant = cell.frame.width - markerWidth
     }
     cell.updateConstraints()
     return cell
