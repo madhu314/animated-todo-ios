@@ -25,7 +25,7 @@ class ListViewController: UIViewController, UICollectionViewDelegate, UICollecti
     let gridSpacing: CGFloat = 10
     collectionViewLayout.minimumInteritemSpacing = 0
     collectionViewLayout.minimumLineSpacing = gridSpacing
-    collectionViewLayout.sectionInset = UIEdgeInsets(top: 4 * gridSpacing, left: 2 * gridSpacing, bottom: gridSpacing, right: 2 * gridSpacing)
+    collectionViewLayout.sectionInset = UIEdgeInsets(top: 4 * gridSpacing, left: 2 * gridSpacing, bottom: 4 * gridSpacing, right: 2 * gridSpacing)
 
     let width: CGFloat = collectionView.frame.width
     let height: CGFloat = 80
@@ -42,21 +42,37 @@ class ListViewController: UIViewController, UICollectionViewDelegate, UICollecti
   func handleLongGesture(gesture: UILongPressGestureRecognizer) {
 
     switch(gesture.state) {
-
     case .began:
       movementStartLocation = gesture.location(in: collectionView)
       if let indexPath = self.collectionView.indexPathForItem(at: movementStartLocation!) {
         let cell = self.collectionView.cellForItem(at: indexPath) as! ListItemCell
-        movingCell = cell
-        collectionView.beginInteractiveMovementForItem(at: indexPath)
-        self.decorateReadyToMove(for: cell, withElevation: 8, andAngle: 0.0)
+        if let item = cell.listItem {
+          if !item.isCompleted {
+            let canBegin = collectionView.beginInteractiveMovementForItem(at: indexPath)
+            if canBegin {
+              self.decorateReadyToMove(for: cell, andAngle: 0.0)
+              movingCell = cell
+            }
+          }
+        }
       }
     case .changed:
       let changedTo: CGPoint = gesture.location(in: collectionView)
-      collectionView.updateInteractiveMovementTargetPosition(changedTo)
-      if let cell = movingCell {
-        decorateReadyToMove(for: cell, withElevation: 8, andAngle: (changedTo.y - movementStartLocation!.y > 0) ? 2.0 : -2.0)
-        movementStartLocation = changedTo
+      if let hitIndexpath = self.collectionView.indexPathForItem(at: changedTo) {
+        let item = listItemDataset.item(at: hitIndexpath.row)
+        if !item.isCompleted {
+          collectionView.updateInteractiveMovementTargetPosition(changedTo)
+          if let cell = movingCell {
+            var angle: CGFloat = 0.0
+            if changedTo.y - movementStartLocation!.y > 0 {
+              angle = 2.0
+            } else if movementStartLocation!.y - changedTo.y > 0 {
+              angle = -2.0
+            }
+            decorateReadyToMove(for: cell, andAngle: angle)
+            movementStartLocation = changedTo
+          }
+        }
       }
     case .ended:
       if let cell = self.movingCell {
@@ -95,11 +111,13 @@ class ListViewController: UIViewController, UICollectionViewDelegate, UICollecti
     cell.label.text = listItem.name
     cell.colorMarkerView.backgroundColor = listItem.itemColor
     cell.listItem = listItem
+    cell.alpha = 1
 
     cell.completedClosure = { listItem in
+      self.decorateReadyToMove(for: cell, andAngle: 0.0)
       cell.leadingConstraint.constant = 0
       cell.trailingConstraint.constant = 0
-      UIView.animate(withDuration: 0.15, delay: 0.0, usingSpringWithDamping: 1, initialSpringVelocity: 0.5, options: .curveLinear, animations: {
+      UIView.animate(withDuration: 0.3, delay: 0.0, usingSpringWithDamping: 1, initialSpringVelocity: 0.5, options: .curveLinear, animations: {
         cell.layoutIfNeeded()
       }, completion: { (_) in
         if(listItem.isCompleted) {
@@ -107,7 +125,7 @@ class ListViewController: UIViewController, UICollectionViewDelegate, UICollecti
         } else {
           cell.leadingConstraint.constant = cell.frame.width - 4
         }
-        UIView.animate(withDuration: 0.15, delay: 0.0, usingSpringWithDamping: 1, initialSpringVelocity: 0.5, options: .curveEaseInOut, animations: {
+        UIView.animate(withDuration: 0.3, delay: 0.0, usingSpringWithDamping: 1, initialSpringVelocity: 0.5, options: .curveEaseInOut, animations: {
           if(listItem.isCompleted) {
             self.decorateResting(for: cell)
           } else {
@@ -122,10 +140,11 @@ class ListViewController: UIViewController, UICollectionViewDelegate, UICollecti
 
     cell.deletedClosure = { listItem in
       UIView.animate(withDuration: 0.3, delay: 0.0, usingSpringWithDamping: 1, initialSpringVelocity: 0.5, options: .curveEaseIn, animations: {
-        self.decorateReadyToMove(for: cell, withElevation: 4, andAngle: 0)
+        self.decorateReadyToMove(for: cell, andAngle: 0)
         cell.transform = CGAffineTransform(scaleX: 0.01, y: 1)
       }, completion: { (_) in
-        cell.transform = CGAffineTransform(scaleX: 0, y: 0)
+        cell.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
+        cell.alpha = 0
         self.listItemDataset.remove(item: listItem, on: self.collectionView)
       })
     }
@@ -148,20 +167,21 @@ class ListViewController: UIViewController, UICollectionViewDelegate, UICollecti
   }
 
   func collectionView(_ collectionView: UICollectionView, canMoveItemAt indexPath: IndexPath) -> Bool {
-    return true
+    let item = listItemDataset.item(at: indexPath.row)
+    return !item.isCompleted
   }
 
   func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
     listItemDataset.moveItem(from: sourceIndexPath.row, to: destinationIndexPath.row)
   }
 
-  func decorateReadyToMove(for view: UIView, withElevation elevation: CGFloat, andAngle angle: CGFloat?) {
+  func decorateReadyToMove(for view: UIView, andAngle angle: CGFloat?) {
     view.backgroundColor = UIColor.white
     view.layer.masksToBounds = false
     view.layer.shadowColor = UIColor.black.cgColor
-    view.layer.shadowOffset = CGSize(width: 0, height: elevation)
+    view.layer.shadowOffset = CGSize(width: 0, height: 16)
     view.layer.shadowOpacity = 0.24
-    view.layer.shadowRadius = elevation
+    view.layer.shadowRadius = 16
     view.layer.borderColor = UIColor.darkGray.cgColor
     view.layer.borderWidth = 0
     if let _ = angle {

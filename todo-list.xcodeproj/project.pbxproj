@@ -127,12 +127,12 @@
 		C2F5E0991E4471070018D9BA = {
 			isa = PBXGroup;
 			children = (
+				4094DFEB4716C6AD52134D7E /* Frameworks */,
+				4B94898F36DE849E60A98333 /* Pods */,
 				C2F5E0A31E4471070018D9BA /* Products */,
 				C2F5E0A41E4471070018D9BA /* todo-list */,
 				C2F5E0BC1E4471070018D9BA /* todo-listTests */,
 				C2F5E0C71E4471070018D9BA /* todo-listUITests */,
-				4B94898F36DE849E60A98333 /* Pods */,
-				4094DFEB4716C6AD52134D7E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
